@@ -1,0 +1,10 @@
+<p (click)="chatParticipantsView()" id="link" ion-text *ngIf="chatConversation.scheduling">
+        Participantes da Conversa
+      </p>
+
+<div (click)="chatParticipantsRead(chatMessage)" class="bubble"
+    [ngClass]="{'bubble-me' : chatMessage.sender.email == currentUsername}" *ngFor="let chatMessage of chatMessages">
+    {{ chatMessage.body }}
+    <span> {{ chatMessage.sender.name}} {{ chatMessage.dateRegistered | moment: 'D/M/YY H:mm' }}</span>
+  </div>
+</ion-content>
