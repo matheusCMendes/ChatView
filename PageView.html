@@ -1,0 +1,61 @@
+<ion-header>
+
+  <ion-navbar no-border-bottom color="primary">
+    <ion-buttons left>
+      <button id="button" (click)="onDimiss()" ion-button icon-only default clear>
+        <ion-icon color="light" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+      <ion-title *ngIf="viewOrRead == 'read'">
+        Quem visualizou a mensagem
+      </ion-title>
+
+      <ion-title *ngIf="viewOrRead == 'view'">
+        Participantes da conversa
+      </ion-title>
+    
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ng-container *ngIf="viewOrRead == 'read'">
+
+    <ion-list *ngIf="infoViewMessage">
+      <ion-item *ngFor="let readers of infoViewMessage">
+        {{ readers.name}}
+        <{{ readers.email}}>
+      </ion-item>
+    </ion-list>
+
+    <ion-item *ngIf="infoViewMessage?.length == 0">
+      <p>
+        Ninguem visualizou sua mensagem!
+      </p>
+    </ion-item>
+  </ng-container>
+
+  <ng-container *ngIf="viewOrRead == 'view'">
+    <ion-list *ngIf="chatConversation">
+      <ion-item *ngFor="let participants of chatConversation.participants">
+
+        <ion-avatar item-start>
+          <img src="{{ imageBaseUrl + participants.imageId }}" onError="this.src='assets/image/no-avatar.png'"
+            *ngIf="participants.imageId">
+          <img src="assets/image/no-avatar.png" *ngIf="!participants.imageId">
+        </ion-avatar>
+
+        {{ participants.name }}
+        <{{ participants.email }}>
+      </ion-item>
+    </ion-list>
+
+    <ion-item *ngIf="!chatConversation">
+      <p>
+        Ninguem foi inserido no grupo!
+      </p>
+    </ion-item>
+  </ng-container>
+</ion-content>
